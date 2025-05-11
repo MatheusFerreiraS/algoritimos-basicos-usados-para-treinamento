@@ -3,6 +3,27 @@ import statistics
 from collections import Counter
 import time
 
+def pegar_numero(mensagem):
+    while True:
+        entrada = input(mensagem).replace(',', '.')
+        try:
+            return float(entrada)
+        except ValueError:
+            print("Valor inválido. Digite um número.")
+
+def pegar_desconto(mensagem):
+    while True:
+        entrada = input(mensagem).replace(',', '.')
+        try:
+            valor = float(entrada)
+            if valor < 0 or valor > 100:
+                print("Porcentagem inválida. Deve estar entre 0% e 100%.")
+            else:
+                print("Porcentagem válida.")
+                return valor
+        except ValueError:
+            print("Valor inválido. Digite um número.")
+
 def operacaomatematica():
     reais = {
         "somar": operator.add,
@@ -24,26 +45,25 @@ def operacaomatematica():
     simbolo = reais.get(resposta)
     print(f"\nSua escolha foi: {resposta}\n")
     
-    print(f"Para {resposta} informe o primeiro e o segundo valor respectivamente\n")
-    a = float(input("Digite o primeiro número\n").replace(",", "."))
-    print()
-    b = float(input("Digite o segundo número\n").replace(",", "."))
-    print()
+    
+
+    a = pegar_numero("Digite o primeiro número: ")
+    b = pegar_numero("Digite o segundo número: ")
+
     if resposta == "dividir" and b == 0:
-        print("Um dos números digitados é 0, o que não é permitido, tente novamente!\n")
-        operacaomatematica()
+        print("Divisão por zero não é permitida. Tente novamente.\n")
         time.sleep(2)
-        return
+        return operacaomatematica()
+
     if resposta == "media":
-        c = simbolo([a, b])
-        print(f"O resultado da operação é {c}")
+        resultado = simbolo([a, b])
     else:
-        c = simbolo(a, b)
-        proximo = c+1
-        anterior = c-1
-        print(f"O resultado da operação é {c}")
-        print(f"O próximo número é {proximo}")
-        print(f"O número anterior é {anterior}")
+        resultado = simbolo(a, b)
+        print(f"\nO próximo número é {resultado + 1}")
+        print(f"\nO número anterior é {resultado - 1}")
+
+    print(f"\nO resultado da operação é {resultado}")
+
     time.sleep(2)
     continuar()
 
@@ -59,8 +79,9 @@ def proximoanterior():
     time.sleep(2)
     continuar()
 
-def vogaisnumeros():
+def contadorcaracteres():
     vogais = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+    concoantes = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z", "B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"]
     numeros = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     texto = input("Digite uma palavra: ")
 
@@ -69,13 +90,14 @@ def vogaisnumeros():
 
     # Soma as ocorrências das vogais e números
     quantidadevogais = sum(contagem[vogal] for vogal in vogais)
+    quantidadeconcoantes = sum(contagem[concoante] for concoante in concoantes)
     quantidadenumeros = sum(contagem[numero] for numero in numeros)
     if texto == "":
         print("Texto vazio, tente novamente!\n")
         time.sleep(1)
         vogaisnumeros()
         return
-    print(f"\nA quantidade de vogais no texto {texto} é {quantidadevogais}, e a quantidade de números é {quantidadenumeros}")
+    print(f"\nA quantidade de vogais no texto {texto} é {quantidadevogais}, a quantidade de conçoantes é {quantidadeconcoantes} e a quantidade de números é {quantidadenumeros}")
     time.sleep(2)
     continuar()
 
@@ -89,34 +111,92 @@ def continuar():
     else:
         print("Resposta inválida, tente novamente!")
         continuar()
+
+def tercaparte():
+    a = pegar_numero("Digite o número que deseja ver quanto vale um terço dele:\n")
+    terco = a / 3
+    print(f"\nUm terço de {a} é {terco}")
+    continuar()
+
+def medidas():
+    metro = pegar_numero("Digite o valor em metros para converter: ")
+    print(f"\nVocê digitou {metro} metros. Conversões:")
+    
+    unidades = {
+        "Milímetros": metro * 1000,
+        "Centímetros": metro * 100,
+        "Decímetros": metro * 10,
+        "Decâmetros": metro / 10,
+        "Hectômetros": metro / 100,
+        "Quilômetros": metro / 1000,
+    }
+    
+    for unidade, valor in unidades.items():
+        print(f"{unidade}: {valor}")
+
+    continuar()
+
+def conversao():
+    valorreal = pegar_numero("Digite o valor da sua carteira em reais: R$")
+    print(f"\nO valor da sua carteira em reais é de R${valorreal}\n")
+
+    moedas = {
+        "dolar": valorreal/3.45,
+        "euro": valorreal/4.50,
+    }
+    input("Escolha para qual moeda você deseja converter\n")
+    for moeda in moedas.items():
+        print(f"{moeda}")
+
+    #print("Veja o valor atual da sua carteira em dólares")
+    #valorreal = pegar_numero("Digite o valor atual da sua carteira em R$")
+    #valordolar = valorreal/3.45
+    #print(f"O valor da sua carteira em dólares é de: {valordolar}")
+    continuar()
+    
+def calculodescontos():
+    
+    a = pegar_numero("\nDigite o valor original do produto: R$")
+    b = pegar_desconto("\nDigite a porcentagem do desconto: ")
+    c = a/100 * b
+    d = a - c
+    print(f"\nO valor descontado é de R${c}\nO valor final da compra é de R${d}")
+
+    
+    continuar()
+
 def sair():
     quit()
 
 def definirprograma():
     tipoPrograma = {
         "1": operacaomatematica,
-        #"2": tercaparte,
-        #"3": metragem,
-        #"4": conversao,
-        #"5": calculodescontos,
+        "2": tercaparte,
+        "3": medidas,
+        "4": conversao,
+        "5": calculodescontos,
         "6": proximoanterior,
-        "7": vogaisnumeros,
+        "7": contadorcaracteres,
         "10": sair,
     }
     nomesPrograma = {
         "1": "Operações matemáticas",
-        #"2": "Terceira parte",
-        #"3": "Metragem",
-        #"4": "Conversão",
-        #"5": "Cálculo de descontos",
+        "2": "Terceira parte",
+        "3": "Metragem",
+        "4": "Conversão",
+        "5": "Cálculo de descontos",
         "6": "Próximo e anterior",
-        "7": "Vogais e números",
+        "7": "Contador de letras e números",
         "10": "Sair",
     }
     mensagemExibicao = {
         "1": "\nOperações matemáticas foi selecionado\n",
+        "2": "\nTerceira parte foi selecionado\n",
+        "3": "\nConversão de medidas escolhida\n",
+        "4": "\nConversão de moedas\n",
+        "5": "\nCaluladora de descontos\n",
         "6": "\nProximo e anterior foi selecionado\n",
-        "7": "\nVogais e números foi selecionado\n",
+        "7": "\nLetras e números foi selecionado\n",
         "10": "\nSaindo do programa...",
     }
     while True:
