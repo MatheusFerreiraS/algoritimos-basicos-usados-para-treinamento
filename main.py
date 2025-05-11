@@ -2,6 +2,8 @@ import operator
 import statistics
 from collections import Counter
 import time
+import random
+import pyodbc
 
 def pegar_numero(mensagem):
     while True:
@@ -19,7 +21,6 @@ def pegar_desconto(mensagem):
             if valor < 0 or valor > 100:
                 print("Porcentagem inválida. Deve estar entre 0% e 100%.")
             else:
-                print("Porcentagem válida.")
                 return valor
         except ValueError:
             print("Valor inválido. Digite um número.")
@@ -101,17 +102,6 @@ def contadorcaracteres():
     time.sleep(2)
     continuar()
 
-def continuar():
-    resposta = input("\nDeseja continuar? (s/n)\n").lower()
-    if resposta == "s":
-        definirprograma()
-    elif resposta == "n":
-        print("Saindo do programa...")
-        quit()
-    else:
-        print("Resposta inválida, tente novamente!")
-        continuar()
-
 def tercaparte():
     a = pegar_numero("Digite o número que deseja ver quanto vale um terço dele:\n")
     terco = a / 3
@@ -158,15 +148,40 @@ def calculodescontos():
     
     a = pegar_numero("\nDigite o valor original do produto: R$")
     b = pegar_desconto("\nDigite a porcentagem do desconto: ")
-    c = a/100 * b
+    c = a / 100 * b
     d = a - c
-    print(f"\nO valor descontado é de R${c}\nO valor final da compra é de R${d}")
+    print(f"\nO valor descontado é de R$ {c:.2f}")
+    print(f"O valor final da compra é de R$ {d:.2f}")
+    time.sleep(1)
+    continuar()
 
-    
+def testerandom():
+    a = random.randint(0,4)
+    b = random.randint(0,4)
+    print(f"{a}")
+    print(f"{b}")
+    if a == b:
+        print(f"O jogo terminou em empate, com ambos times fazendo {a} gols!")
+    elif a > b:
+        print(f"O time da casa vence de {a} a {b}!")
+    elif a < b:
+        print(f"O time visitante vence o jogo de {b} a {a}!")
+    time.sleep(1)
     continuar()
 
 def sair():
     quit()
+
+def continuar():
+    while True:
+        resposta = input("\nDeseja continuar? (s/n)\n").lower()
+        if resposta == "s":
+            definirprograma()
+        elif resposta == "n":
+            print("Saindo do programa...")
+            quit()
+        else:
+            print("Resposta inválida, tente novamente!")
 
 def definirprograma():
     tipoPrograma = {
@@ -177,6 +192,7 @@ def definirprograma():
         "5": calculodescontos,
         "6": proximoanterior,
         "7": contadorcaracteres,
+        "8": testerandom,
         "10": sair,
     }
     nomesPrograma = {
@@ -187,6 +203,7 @@ def definirprograma():
         "5": "Cálculo de descontos",
         "6": "Próximo e anterior",
         "7": "Contador de letras e números",
+        "8": "teste random",
         "10": "Sair",
     }
     mensagemExibicao = {
@@ -197,6 +214,7 @@ def definirprograma():
         "5": "\nCaluladora de descontos\n",
         "6": "\nProximo e anterior foi selecionado\n",
         "7": "\nLetras e números foi selecionado\n",
+        "8": "\nTeste randômico\n",
         "10": "\nSaindo do programa...",
     }
     while True:
@@ -214,9 +232,5 @@ def definirprograma():
     programa()
 definirprograma()
 
-#palavra = input("digite sua palavra: ")
-
-#for letra in palavra:
-#    print(letra)
 
 
