@@ -134,7 +134,6 @@ def conversao():
         "dolar": valorreal/3.45,
         "euro": valorreal/4.50,
     }
-    input("Escolha para qual moeda você deseja converter\n")
     for moeda in moedas.items():
         print(f"{moeda}")
 
