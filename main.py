@@ -184,52 +184,68 @@ def continuar():
             print("Resposta inválida, tente novamente!")
 
 def definirprograma():
-    tipoPrograma = {
-        "1": operacaomatematica,
-        "2": tercaparte,
-        "3": medidas,
-        "4": conversao,
-        "5": calculodescontos,
-        "6": proximoanterior,
-        "7": contadorcaracteres,
-        "8": testerandom,
-        "10": sair,
+    programas = {
+        "1": {
+            "func": operacaomatematica,
+            "nome": "Operações matemáticas",
+            "mensagem": "\nOperações matemáticas foi selecionado\n"
+        },
+        "2": {
+            "func": tercaparte,
+            "nome": "Terceira parte",
+            "mensagem": "\nTerceira parte foi selecionado\n"
+        },
+        "3": {
+            "func": medidas,
+            "nome": "Metragem",
+            "mensagem": "\nConversor de medidas foi selecionado\n"
+        },
+        "4": {
+            "func": conversao,
+            "nome": "Conversão",
+            "mensagem": "\nConversor de moedas foi selecionado\n"
+        },
+        "5": {
+            "func": calculodescontos,
+            "nome": "Cálculo de descontos",
+            "mensagem": "\nCaluladora de descontos foi selecionada\n"
+        },
+        "6": {
+            "func": proximoanterior,
+            "nome": "Próximo e anterior",
+            "mensagem": "\nProximo e anterior foi selecionado\n"
+        },
+        "7": {
+            "func": contadorcaracteres,
+            "nome": "Contador de letras e números",
+            "mensagem": "\nLetras e números foi selecionado\n"
+        },
+        "8": {
+            "func": testerandom,
+            "nome": "teste random",
+            "mensagem": "\nTeste randômico foi selecionado\n"
+        },
+        "10": {
+            "func": sair,
+            "nome": "Sair",
+            "mensagem": "\nSaindo do programa..."
+        },
     }
-    nomesPrograma = {
-        "1": "Operações matemáticas",
-        "2": "Terceira parte",
-        "3": "Metragem",
-        "4": "Conversão",
-        "5": "Cálculo de descontos",
-        "6": "Próximo e anterior",
-        "7": "Contador de letras e números",
-        "8": "teste random",
-        "10": "Sair",
-    }
-    mensagemExibicao = {
-        "1": "\nOperações matemáticas foi selecionado\n",
-        "2": "\nTerceira parte foi selecionado\n",
-        "3": "\nConversão de medidas escolhida\n",
-        "4": "\nConversão de moedas\n",
-        "5": "\nCaluladora de descontos\n",
-        "6": "\nProximo e anterior foi selecionado\n",
-        "7": "\nLetras e números foi selecionado\n",
-        "8": "\nTeste randômico\n",
-        "10": "\nSaindo do programa...",
-    }
+
     while True:
         print("\nProgramas disponíveis:")
-        for chave, nome in nomesPrograma.items():
-            print(f"{chave}: {nome}")
+        for chave, dados in programas.items():
+            print(f"{chave}: {dados['nome']}")
         resposta = input("\nDigite o número do programa que deseja executar\n")
-        if resposta not in tipoPrograma:
+
+        if resposta not in programas:
             print("\nPrograma inválido, tente novamente!\n")
             continue
         break
-    programa = tipoPrograma.get(resposta)
-    resposta = mensagemExibicao.get(resposta, "ERRO: mensagem não encontrada")
-    print(resposta)
-    programa()
+
+    selecionado = programas[resposta]
+    print(selecionado["mensagem"])
+    selecionado["func"]()
 definirprograma()
 
 
