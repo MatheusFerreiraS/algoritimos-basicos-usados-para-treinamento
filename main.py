@@ -106,6 +106,7 @@ def tercaparte():
     a = pegar_numero("Digite o número que deseja ver quanto vale um terço dele:\n")
     terco = a / 3
     print(f"\nUm terço de {a} é {terco}")
+    time.sleep(2)
     continuar()
 
 def medidas():
@@ -123,7 +124,7 @@ def medidas():
     
     for unidade, valor in unidades.items():
         print(f"{unidade}: {valor}")
-
+    time.sleep(2)
     continuar()
 
 def conversao():
@@ -141,6 +142,7 @@ def conversao():
     #valorreal = pegar_numero("Digite o valor atual da sua carteira em R$")
     #valordolar = valorreal/3.45
     #print(f"O valor da sua carteira em dólares é de: {valordolar}")
+    time.sleep(2)
     continuar()
     
 def calculodescontos():
