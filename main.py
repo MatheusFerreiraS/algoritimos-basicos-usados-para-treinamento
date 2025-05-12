@@ -82,7 +82,7 @@ def proximoanterior():
 
 def contadorcaracteres():
     vogais = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
-    concoantes = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z", "B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"]
+    consoantes = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z", "B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"]
     numeros = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     texto = input("Digite uma palavra: ")
 
@@ -91,14 +91,14 @@ def contadorcaracteres():
 
     # Soma as ocorrências das vogais e números
     quantidadevogais = sum(contagem[vogal] for vogal in vogais)
-    quantidadeconcoantes = sum(contagem[concoante] for concoante in concoantes)
+    quantidadeconsoantes = sum(contagem[consoantes] for consoantes in consoantes)
     quantidadenumeros = sum(contagem[numero] for numero in numeros)
     if texto == "":
         print("Texto vazio, tente novamente!\n")
         time.sleep(1)
-        vogaisnumeros()
+        contadorcaracteres()
         return
-    print(f"\nA quantidade de vogais no texto {texto} é {quantidadevogais}, a quantidade de conçoantes é {quantidadeconcoantes} e a quantidade de números é {quantidadenumeros}")
+    print(f"\nA quantidade de vogais no texto {texto} é {quantidadevogais}, a quantidade de consoantes é {quantidadeconsoantes} e a quantidade de números é {quantidadenumeros}")
     time.sleep(2)
     continuar()
 
