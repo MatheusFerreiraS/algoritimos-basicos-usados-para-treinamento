@@ -88,18 +88,6 @@ def pegar_numero(mensagem):
         except ValueError:
             print("Valor inválido. Digite um número.")
 
-def pegar_desconto(mensagem):
-    while True:
-        entrada = input(mensagem).replace(',', '.')
-        try:
-            valor = float(entrada)
-            if valor < 0 or valor > 100:
-                print("Porcentagem inválida. Deve estar entre 0% e 100%.")
-            else:
-                return valor
-        except ValueError:
-            print("Valor inválido. Digite um número.")
-
 def operacaomatematica():
     reais = {
         "somar": operator.add,
@@ -220,7 +208,12 @@ def conversao():
 def calculodescontos():
     
     a = pegar_numero("\nDigite o valor original do produto: R$")
-    b = pegar_desconto("\nDigite a porcentagem do desconto: ")
+    while True:
+        b = pegar_numero("\nDigite a porcentagem do desconto: ")
+        if b < 0 or b > 100:
+                print("Porcentagem inválida. Deve estar entre 0% e 100%.")
+        else:
+            break
     c = a / 100 * b
     d = a - c
     print(f"\nO valor descontado é de R$ {c:.2f}")
