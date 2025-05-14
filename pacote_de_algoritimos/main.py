@@ -3,20 +3,9 @@ import statistics
 from collections import Counter
 import time
 import random
-import pyodbc
+import sys
 
-def continuar():
-    while True:
-        resposta = input("\nDeseja continuar? (s/n)\n").lower()
-        if resposta == "s":
-            definirprograma()
-        elif resposta == "n":
-            print("Saindo do programa...")
-            quit()
-        else:
-            print("Resposta inválida, tente novamente!")
-
-def definirprograma():
+def main():
     programas = {
         "1": {
             "func": operacaomatematica,
@@ -41,7 +30,7 @@ def definirprograma():
         "5": {
             "func": calculodescontos,
             "nome": "Cálculo de descontos",
-            "mensagem": "\nCaluladora de descontos foi selecionada\n"
+            "mensagem": "\nCalculadora de descontos foi selecionada\n"
         },
         "6": {
             "func": proximoanterior,
@@ -55,11 +44,11 @@ def definirprograma():
         },
         "8": {
             "func": testerandom,
-            "nome": "teste random",
+            "nome": "Teste random",
             "mensagem": "\nTeste randômico foi selecionado\n"
         },
         "10": {
-            "func": sair,
+            "func": sys.exit,
             "nome": "Sair",
             "mensagem": "\nSaindo do programa..."
         },
@@ -74,11 +63,22 @@ def definirprograma():
         if resposta not in programas:
             print("\nPrograma inválido, tente novamente!\n")
             continue
-        break
 
-    selecionado = programas[resposta]
-    print(selecionado["mensagem"])
-    selecionado["func"]()
+        selecionado = programas[resposta]
+        print(selecionado["mensagem"])
+        selecionado["func"]()
+
+        # Loop para continuar ou sair
+        while True:
+            continuar = input("\nDeseja continuar? (s/n)\n").lower()
+            if continuar == "n":
+                print("Saindo do programa...")
+                sys.exit()
+            elif continuar == "s":
+                break
+            else:
+                print("Resposta inválida, tente novamente!")
+ 
 
 def pegar_numero(mensagem):
     while True:
@@ -125,7 +125,7 @@ def operacaomatematica():
         break
     print(f"\nO resultado da operação é {resultado}")
     time.sleep(1)
-    continuar()
+    
 
 def proximoanterior():
 
@@ -137,7 +137,7 @@ def proximoanterior():
     print(f"O próximo número é {proximo}")
     print(f"O número anterior é {anterior}")
     time.sleep(2)
-    continuar()
+    
 
 def contadorcaracteres():
     vogais = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
@@ -160,14 +160,14 @@ def contadorcaracteres():
     quantidadenumeros = sum(contagem[numero] for numero in numeros)
     print(f"\nA quantidade de vogais no texto é {quantidadevogais}, a quantidade de consoantes é {quantidadeconsoantes} e a quantidade de números é {quantidadenumeros}")
     time.sleep(2)
-    continuar()
+    
 
 def tercaparte():
     a = pegar_numero("Digite o número que deseja ver quanto vale um terço dele:\n")
     terco = a / 3
     print(f"\nUm terço de {a} é {terco}")
     time.sleep(2)
-    continuar()
+    
 
 def medidas():
     metro = pegar_numero("Digite o valor em metros para converter: ")
@@ -185,7 +185,7 @@ def medidas():
     for unidade, valor in unidades.items():
         print(f"{unidade}: {valor}")
     time.sleep(2)
-    continuar()
+    
 
 def conversao():
     valorreal = pegar_numero("Digite o valor da sua carteira em reais: R$")
@@ -203,7 +203,7 @@ def conversao():
     #valordolar = valorreal/3.45
     #print(f"O valor da sua carteira em dólares é de: {valordolar}")
     time.sleep(2)
-    continuar()
+    
     
 def calculodescontos():
     
@@ -219,7 +219,7 @@ def calculodescontos():
     print(f"\nO valor descontado é de R$ {c:.2f}")
     print(f"O valor final da compra é de R$ {d:.2f}")
     time.sleep(1)
-    continuar()
+    
 
 def testerandom():
     a = random.randint(0,4)
@@ -233,12 +233,13 @@ def testerandom():
     elif a < b:
         print(f"O time visitante vence o jogo de {b} a {a}!")
     time.sleep(1)
-    continuar()
+    
 
 def sair():
     quit()
 
-definirprograma()
+# Início do programa
+main()
 
 
 
