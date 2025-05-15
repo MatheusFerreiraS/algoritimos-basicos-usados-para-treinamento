@@ -15,9 +15,10 @@ cursor = cnxn.cursor()
 cursor.execute("SELECT matricula, nome FROM alunos")
 
 # Obter e exibir os resultados
-row = cursor.fetchone()
-if row:
-    print(f"Matricula: {row[0]}, Nome: {row[1]}")
+rows = cursor.fetchall()
+if rows:
+    for row in rows:
+        print(f"Matricula: {row[0]}, Nome: {row[1]}")
 else:
     print("Nenhum dado encontrado.")
 
