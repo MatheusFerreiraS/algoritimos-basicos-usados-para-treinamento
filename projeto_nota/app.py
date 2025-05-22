@@ -87,12 +87,12 @@ def notas_alunos(): #FUNÇÃO PRINCIPAL
             Nota: {dados['Nota']}
             """)
             elif lista == "n":
-                pass
+                for chave, dados in alunos.items():
+                    break
             else:
                 print("Resposta inválida, tente novamente!")
                 continue
             break
-            
         while True:
         # AQUI EU FIZ UM LOOP, CASO A PESSOA COLOQUE UM INPUT QUE NÃO CORRESPONDA COM A MATRICULA DE QUALQUER ALUNO, ELE RETORNA AO INCIO E PRINTA UMA MENSAGEM DE ERRO
             resposta = input("Digite a matricula do aluno que deseja verificar: ")
